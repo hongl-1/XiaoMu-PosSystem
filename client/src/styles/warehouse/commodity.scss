@@ -1,4 +1,4 @@
-@import "../global.scss";
+@import '../global.scss';
 
 .commodity-wrap {
   height: 100%;
@@ -52,7 +52,6 @@
       .list-wrap {
         height: 100%;
       }
-      
     }
     .right-menu {
       @extend .base-card;
@@ -77,7 +76,8 @@
         }
 
         transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-          border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+          border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+          background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
           padding 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
       }
     }

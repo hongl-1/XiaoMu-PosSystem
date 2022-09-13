@@ -1,8 +1,8 @@
-import express from "express";
-import members from "./members.js";
+import express from 'express'
+import members from './members.js'
 
-const route = express.Router();
+const route = express.Router()
 
-route.use("/members", members);
+route.use('/members', members)
 
-export default route;
+export default route

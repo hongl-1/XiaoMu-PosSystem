@@ -1,16 +1,16 @@
-import express from "express";
-import TodayTasks from "../tasks/today.js";
+import express from 'express'
+import TodayTasks from '../tasks/today.js'
 
-const route = express.Router();
+const route = express.Router()
 
-route.get("/", async (req, res) => {
-    // 获取门店当天的销售数据
+route.get('/', async (req, res) => {
+  // 获取门店当天的销售数据
 
-    const { isAdmin, username } = req["jwt_value"];
+  const { isAdmin, username } = req['jwt_value']
 
-    const data = await TodayTasks.getTodayData(isAdmin, username);
+  const data = await TodayTasks.getTodayData(isAdmin, username)
 
-    res.json(data);
-});
+  res.json(data)
+})
 
-export default route;
+export default route

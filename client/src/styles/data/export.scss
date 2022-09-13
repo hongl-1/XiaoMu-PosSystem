@@ -1,4 +1,4 @@
-@import "../global.scss";
+@import '../global.scss';
 
 .data-wrapper {
   @extend .base-card;
@@ -23,7 +23,7 @@
       align-items: center;
 
       :global(.ant-spin-text) {
-          margin-top: 10px;
+        margin-top: 10px;
       }
     }
   }

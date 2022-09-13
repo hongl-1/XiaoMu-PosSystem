@@ -1,8 +1,8 @@
-import express from "express";
-import promotion from "./promotion/index.js";
+import express from 'express'
+import promotion from './promotion/index.js'
 
-const route = express.Router();
+const route = express.Router()
 
-route.use("/promotion", promotion);
+route.use('/promotion', promotion)
 
-export default route;
+export default route

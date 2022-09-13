@@ -20,10 +20,11 @@
   "homepage": "https://github.com/vhvy/XiaoMu-PosSystem#readme",
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "electron": "^8.2.0",
     "electron-builder": "^22.4.1",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.16.0",
-    "electron": "^8.2.0"
+    "prettier": "^2.7.1"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.7",

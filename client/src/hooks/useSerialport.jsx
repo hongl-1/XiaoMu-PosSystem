@@ -1,31 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 export function useSerialport() {
+  const [serialPort, setSerialPortList] = useState([])
 
-    const [serialPort, setSerialPortList] = useState([]);
+  async function getComportList() {
+    // 获取串口列表
 
-    async function getComportList() {
-        // 获取串口列表
+    const fakeComportList = [
+      {
+        port: 'COM1'
+      },
+      {
+        port: 'COM2'
+      },
+      {
+        port: 'COM3'
+      }
+    ]
 
-        const fakeComportList = [
-            {
-                port: "COM1",
-            },
-            {
-                port: "COM2"
-            },
-            {
-                port: "COM3"
-            }
-        ];
+    setSerialPortList(fakeComportList)
+  }
 
-        setSerialPortList(fakeComportList);
-    }
+  useEffect(() => {
+    getComportList()
+  }, [])
 
-    useEffect(() => {
-        getComportList();
-    }, []);
-
-    return serialPort;
-
+  return serialPort
 }

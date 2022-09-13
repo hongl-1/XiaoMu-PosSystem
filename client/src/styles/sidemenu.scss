@@ -20,6 +20,8 @@
   }
 }
 
-:global(.ant-layout-sider-children) > :global(.ant-menu) > :global(.ant-menu-item) {
+:global(.ant-layout-sider-children)
+  > :global(.ant-menu)
+  > :global(.ant-menu-item) {
   width: 100%;
 }

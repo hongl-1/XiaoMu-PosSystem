@@ -1,27 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 export function usePosprint() {
+  const [posPrintList, setPosPrintList] = useState([])
 
-    const [posPrintList, setPosPrintList] = useState([]);
+  async function getPosPrintList() {
+    // 待以后补齐相关代码，使用electron提供的node api获取本地打印机列表
 
-    async function getPosPrintList() {
-        // 待以后补齐相关代码，使用electron提供的node api获取本地打印机列表
+    const fakePrintList = [
+      {
+        name: 'POS58'
+      },
+      {
+        name: 'TPA42'
+      }
+    ]
 
-        const fakePrintList = [
-            {
-                name: "POS58"
-            },
-            {
-                name: "TPA42"
-            }
-        ];
+    setPosPrintList(fakePrintList)
+  }
 
-        setPosPrintList(fakePrintList);
-    }
+  useEffect(() => {
+    getPosPrintList()
+  }, [])
 
-    useEffect(() => {
-        getPosPrintList();
-    }, []);
-
-    return posPrintList;
+  return posPrintList
 }

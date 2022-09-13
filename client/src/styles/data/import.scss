@@ -1,4 +1,4 @@
-@import "../global.scss";
+@import '../global.scss';
 
 .data-import-wrapper {
   @extend .base-card;
@@ -171,7 +171,6 @@
     }
 
     .fields-config-wrap {
-
       & > p:first-of-type {
         margin-bottom: 10px;
       }
@@ -202,7 +201,7 @@
         .dot-ani::after {
           display: inline-table;
           white-space: pre;
-          content: "\A.\A..\A...";
+          content: '\A.\A..\A...';
           animation: spin 2s steps(4) infinite;
         }
         @keyframes spin {

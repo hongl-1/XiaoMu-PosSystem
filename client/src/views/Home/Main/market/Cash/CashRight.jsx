@@ -22,7 +22,7 @@ function CashHotKeyBtn({ label, hotkey, fn = () => {}, count = 0 }) {
 }
 
 export function CashRight({ show = false, hotkey, count }) {
-  if (!show) return null
+  // if (!show) return null
 
   return (
     <Col

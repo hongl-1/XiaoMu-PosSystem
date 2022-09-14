@@ -75,12 +75,18 @@ function currentOrder(state = orderInit, action) {
         (item) => item.barcode === action.commodity.barcode
       )
       let commodityListTemp = []
+      let selectTemp = null
       // 查询当前列表中是否有同一个商品 是同一商品加数量
       if (index > -1) {
+        console.log(state.commodityList[index])
         state.commodityList[index].count++
         state.commodityList[index].money =
           state.commodityList[index].count * action.commodity.sale_price
         commodityListTemp = [...state.commodityList]
+        selectTemp = {
+          type: 'origin',
+          id: state.commodityList[index].id
+        }
       } else {
         commodityListTemp = [
           ...state.commodityList,
@@ -95,7 +101,7 @@ function currentOrder(state = orderInit, action) {
         ...state,
         commodityList: commodityListTemp,
         id: state.id + 1,
-        select: {
+        select: selectTemp || {
           type: 'origin',
           id: state.id + 1
         }

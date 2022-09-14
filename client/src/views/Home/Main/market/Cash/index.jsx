@@ -1,20 +1,20 @@
-import React, { useState, useMemo } from 'react'
-import { Row, message } from 'antd'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import React, { useMemo, useState } from 'react'
+import { message, Row } from 'antd'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { CashLeft } from './CashLeft'
 import { CashRight } from './CashRight'
 import {
   addCommodityToOrderAction,
+  clearOrderVipAction,
   deleteCommodityFromOrderAction,
+  hangupOrderAction,
+  resetOrderAction,
   setOrderSelectCommodityAction,
   setOrderSelectCommodityCountAction,
-  setOrderSelectCommodityPriceAction,
   setOrderSelectCommodityGiveAction,
+  setOrderSelectCommodityPriceAction,
   setOrderSelectCommodityReturnAction,
-  setOrderVipAction,
-  clearOrderVipAction,
-  resetOrderAction,
-  hangupOrderAction
+  setOrderVipAction
 } from '../../../../../redux/action'
 import { SetVipModal } from './Dialog/SetVip'
 import { HandUpOrder } from './Dialog/HangUpOrder'
@@ -145,6 +145,10 @@ export function Cash() {
     }
 
     function changeCount() {
+      if (typeof inputValue === 'undefined' || inputValue === '') {
+        message.info('请在当前输入框输入数量')
+        return
+      }
       function fn(count) {
         dispatch(setOrderSelectCommodityCountAction(count))
       }
@@ -173,6 +177,10 @@ export function Cash() {
     }
 
     function changePrice() {
+      if (typeof inputValue === 'undefined' || inputValue === '') {
+        message.info('请在当前输入框输入价格')
+        return
+      }
       function fn(price) {
         dispatch(setOrderSelectCommodityPriceAction(price))
       }
@@ -278,7 +286,7 @@ export function Cash() {
       }
     }
 
-    const hotkey = [
+    return [
       {
         key: 'F4',
         label: '清空商品',
@@ -347,8 +355,6 @@ export function Cash() {
         fn: downSelect
       } // 选择下一行商品
     ]
-
-    return hotkey
   }, [commodityList, selectType, select, vip, historyOrder])
 
   const Right = useMemo(

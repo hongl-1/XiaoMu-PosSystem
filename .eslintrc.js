@@ -22,6 +22,7 @@ module.exports = {
     'react/jsx-uses-vars': 2,
     'react/react-in-jsx-scope': 2,
     quotes: [1, 'single'],
-    'linebreak-style': ['error', 'unix']
+    'linebreak-style': ['error', 'unix'],
+    'no-case-declarations': 'off'
   }
 }

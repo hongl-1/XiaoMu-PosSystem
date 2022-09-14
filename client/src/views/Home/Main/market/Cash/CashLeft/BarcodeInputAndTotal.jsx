@@ -67,6 +67,7 @@ export function BarcodeInputAndTotal({
 
   function handleHotKey(e) {
     const { key } = e
+    console.log(key)
     const item = hotkey.find((t) => t.key === key)
     item &&
       (() => {

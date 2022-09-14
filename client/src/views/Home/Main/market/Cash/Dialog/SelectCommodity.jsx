@@ -87,6 +87,7 @@ export function SelectCommodity({ data, closeFn }) {
   }
 
   function handleClick(id) {
+    console.log(id)
     setSelect({
       selectType: 'click',
       select: id

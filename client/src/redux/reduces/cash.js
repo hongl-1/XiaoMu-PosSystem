@@ -26,7 +26,7 @@ import { getFormatTime } from '../../tools/time'
 const { GLOBAL_CASH_HOTKEY_SHOW } = config
 
 const cashHotKeyInitStatus =
-  localStorage.getItem(GLOBAL_CASH_HOTKEY_SHOW) === 'hide' ? false : true
+  localStorage.getItem(GLOBAL_CASH_HOTKEY_SHOW) === 'hide'
 
 export function showCashHotKey(state = cashHotKeyInitStatus, action) {
   switch (action.type) {
@@ -71,16 +71,29 @@ function currentOrder(state = orderInit, action) {
         }
       })()
     case CASH_ORDER_ADD_COMMODITY:
-      return {
-        ...state,
-        commodityList: [
+      const index = state.commodityList.findIndex(
+        (item) => item.barcode === action.commodity.barcode
+      )
+      let commodityListTemp = []
+      // 查询当前列表中是否有同一个商品 是同一商品加数量
+      if (index > -1) {
+        state.commodityList[index].count++
+        state.commodityList[index].money =
+          state.commodityList[index].count * action.commodity.sale_price
+        commodityListTemp = [...state.commodityList]
+      } else {
+        commodityListTemp = [
           ...state.commodityList,
           Object.assign({}, action.commodity, {
             id: state.id + 1,
             count: 1,
             money: action.commodity.sale_price
           })
-        ],
+        ]
+      }
+      return {
+        ...state,
+        commodityList: commodityListTemp,
         id: state.id + 1,
         select: {
           type: 'origin',

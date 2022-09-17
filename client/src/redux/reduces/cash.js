@@ -48,7 +48,6 @@ const orderInit = {
 }
 
 function currentOrder(state = orderInit, action) {
-  console.log(state)
   switch (action.type) {
     case CASH_HISTORY_ORDER_IMPORT:
       return (() => {

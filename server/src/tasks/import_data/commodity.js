@@ -8,7 +8,6 @@ const { default_supplier } = config
 export default class ImportCommdityManage {
   static async importData(rules, data) {
     // 导入数据
-
     const { barcode_exist, category_exist, supplier_exist } = rules
 
     const current_category_value = await CategoryManage.getCategoriesDetails()
@@ -71,21 +70,48 @@ export default class ImportCommdityManage {
       return supplier_name
     }
 
-    for (let item of data) {
-      const { barcode, category_name, supplier_name, ...fields } = item
+    // for (let item of data) {
+    //
+    // }
+    try {
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i]
+        const { barcode, category_name, supplier_name, ...fields } = item
 
-      const result = await CommodityTask.getCommodityDetails(barcode)
-      // 查找是否含有条码对应的商品
-      if (result) {
-        // 此条码的商品已经存在
-        if (!barcode_exist) {
-          // 规则为跳过商品， 则跳过此商品
-          skip_count++
-          continue
+        const result = await CommodityTask.getCommodityDetails(barcode)
+        console.log(result)
+        // 查找是否含有条码对应的商品
+        if (result) {
+          // 此条码的商品已经存在
+          if (!barcode_exist) {
+            // 规则为跳过商品， 则跳过此商品
+            skip_count++
+            continue
+          } else {
+            // 否则就更新商品信息
+            const category_id = await handleCategory(category_name)
+            if (category_id === false) {
+              skip_count++
+              continue
+              // 当规则设置为跳过时直接跳过此商品
+            }
+
+            const base_supplier_name = await handleSupplier(supplier_name)
+
+            let updateValue = {
+              ...fields,
+              current_barcode: result.barcode,
+              category_name,
+              supplier_name: base_supplier_name
+            }
+
+            await CommodityTask.updateCommodityValue(updateValue)
+            update_count++
+          }
         } else {
-          // 否则就更新商品信息
-          const category_id = await handleCategory(category_name)
+          // 无此条码，创建商品
 
+          const category_id = await handleCategory(category_name)
           if (category_id === false) {
             skip_count++
             continue
@@ -94,37 +120,19 @@ export default class ImportCommdityManage {
 
           const base_supplier_name = await handleSupplier(supplier_name)
 
-          let updateValue = {
+          await CommodityTask.createCommodity({
             ...fields,
-            current_barcode: result.barcode,
-            category_name,
+            barcode,
+            category_id,
             supplier_name: base_supplier_name
-          }
+          })
+          console.log(`${barcode}创建成功`)
 
-          await CommodityTask.updateCommodityValue(updateValue)
-          update_count++
+          create_count++
         }
-      } else {
-        // 无此条码，创建商品
-
-        const category_id = await handleCategory(category_name)
-        if (category_id === false) {
-          skip_count++
-          continue
-          // 当规则设置为跳过时直接跳过此商品
-        }
-
-        const base_supplier_name = await handleSupplier(supplier_name)
-
-        await CommodityTask.createCommodity({
-          ...fields,
-          barcode,
-          category_id,
-          supplier_name: base_supplier_name
-        })
-
-        create_count++
       }
+    } catch (e) {
+      console.log(e)
     }
 
     return {

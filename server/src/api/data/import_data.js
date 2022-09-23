@@ -12,6 +12,7 @@ route.post(
     const { rules, data } = req.body
 
     const result = await ImportCommodityManage.importData(rules, data)
+    console.log(result)
 
     res.json(result)
   }

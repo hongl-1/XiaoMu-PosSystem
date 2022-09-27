@@ -86,7 +86,7 @@ export default class ImportCommdityManage {
           if (!barcode_exist) {
             // 规则为跳过商品， 则跳过此商品
             skip_count++
-            continue
+            // continue
           } else {
             // 否则就更新商品信息
             const category_id = await handleCategory(category_name)
